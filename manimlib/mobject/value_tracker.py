@@ -1,6 +1,13 @@
-import numpy as np
+from __future__ import annotations
 
+import numpy as np
 from manimlib.mobject.mobject import Mobject
+from manimlib.utils.iterables import listify
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from manimlib.typing import Self
 
 
 class ValueTracker(Mobject):
@@ -10,26 +17,34 @@ class ValueTracker(Mobject):
     uses for its update function, and by treating it as a mobject it can
     still be animated and manipulated just like anything else.
     """
-    CONFIG = {
-        "value_type": np.float64,
-    }
+    value_type: type = np.float64
 
-    def __init__(self, value=0, **kwargs):
+    def __init__(
+        self,
+        value: float | complex | np.ndarray = 0,
+        **kwargs
+    ):
+        self.value = value
         super().__init__(**kwargs)
-        self.set_value(value)
 
-    def init_data(self):
-        super().init_data()
-        self.data["value"] = np.zeros((1, 1), dtype=self.value_type)
+    def init_uniforms(self) -> None:
+        super().init_uniforms()
+        self.uniforms["value"] = np.array(
+            listify(self.value),
+            dtype=self.value_type,
+        )
 
-    def get_value(self):
-        return self.data["value"][0, 0]
+    def get_value(self) -> float | complex | np.ndarray:
+        result = self.uniforms["value"]
+        if len(result) == 1:
+            return result[0]
+        return result
 
-    def set_value(self, value):
-        self.data["value"][0, 0] = value
+    def set_value(self, value: float | complex | np.ndarray) -> Self:
+        self.uniforms["value"][:] = value
         return self
 
-    def increment_value(self, d_value):
+    def increment_value(self, d_value: float | complex) -> None:
         self.set_value(self.get_value() + d_value)
 
 
@@ -40,14 +55,12 @@ class ExponentialValueTracker(ValueTracker):
     behaves
     """
 
-    def get_value(self):
+    def get_value(self) -> float | complex:
         return np.exp(ValueTracker.get_value(self))
 
-    def set_value(self, value):
+    def set_value(self, value: float | complex):
         return ValueTracker.set_value(self, np.log(value))
 
 
 class ComplexValueTracker(ValueTracker):
-    CONFIG = {
-        "value_type": np.complex128
-    }
+    value_type: type = np.complex128

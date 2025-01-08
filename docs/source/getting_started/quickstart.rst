@@ -59,7 +59,7 @@ At this time, no window will pop up. When the program is finished, this rendered
 image will be automatically opened (saved in the subdirectory ``images/`` of the same
 level directory of ``start.py`` by default):
 
-.. image:: ../_static/quickstart/SquareToCircle.png
+.. image:: https://cdn.jsdelivr.net/gh/manim-kindergarten/CDN@master/manimgl_assets/quickstart/SquareToCircle.png
     :align: center
 
 Make an image
@@ -162,7 +162,7 @@ opened after the operation is over:
 
 .. raw:: html
 
-    <video class="manim-video" controls loop autoplay src="../_static/quickstart/SquareToCircle.mp4"></video>
+    <video class="manim-video" controls loop autoplay src="https://cdn.jsdelivr.net/gh/manim-kindergarten/CDN@master/manimgl_assets/quickstart/SquareToCircle.mp4"></video>
 
 Let's take a look at the code this time. The first 7 lines are the same as the previous
 ones, and the 8th line is similar to the 5th line, which creates an instance of the
@@ -221,7 +221,7 @@ For example: input the following lines (without comment lines) into it respectiv
 .. code-block:: python
 
     # Stretched 4 times in the vertical direction
-    play(circle.animate.stretch(4, dim=0}))
+    play(circle.animate.stretch(4, dim=0))
     # Rotate the ellipse 90°
     play(Rotate(circle, TAU / 4))
     # Move 2 units to the right and shrink to 1/4 of the original
@@ -237,7 +237,7 @@ You will get an animation similar to the following:
 
 .. raw:: html
 
-    <video class="manim-video" controls loop autoplay src="../_static/quickstart/SquareToCircleEmbed.mp4"></video>
+    <video class="manim-video" controls loop autoplay src="https://cdn.jsdelivr.net/gh/manim-kindergarten/CDN@master/manimgl_assets/quickstart/SquareToCircleEmbed.mp4"></video>
 
 If you want to enter the interactive mode directly, you don't have to write an
 empty scene containing only ``self.embed()``, you can directly run the following command
